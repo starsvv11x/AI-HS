@@ -13,6 +13,9 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
+// 👇 UBAH URL INI NANTI SESUAI DENGAN LINK RAILWAY KAMU YANG BARU
+const RAILWAY_BASE_URL = "https://klinik-harapan-sehat-ai-production-3384.up.railway.app";
+
 type ChatMessage = { id: string; role: "user" | "doctor"; content: string; };
 
 function makeId() { return Math.random().toString(36).slice(2) + Date.now().toString(36); }
@@ -153,9 +156,10 @@ function Index() {
     setLoading(true);
 
     try {
+      // Menggunakan variabel RAILWAY_BASE_URL agar mudah diganti
       const endpoint = selectedRoom === "Poli Gigi" 
-        ? "https://klinik-harapan-sehat-ai-production-3384.up.railway.app/konsultasi/gigi"
-        : "https://klinik-harapan-sehat-ai-production-3384.up.railway.app/konsultasi/umum";
+        ? `${RAILWAY_BASE_URL}/konsultasi/gigi`
+        : `${RAILWAY_BASE_URL}/konsultasi/umum`;
 
       const res = await fetch(endpoint, {
         method: "POST",
